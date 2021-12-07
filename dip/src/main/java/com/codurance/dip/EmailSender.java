@@ -1,6 +1,6 @@
 package com.codurance.dip;
 
-public class EmailSender {
+public class EmailSender implements Sender {
     public void notifyAll(List<Employee> employees) {
         employees.stream()
             .map(Employee::getBirthdayEmail)
