@@ -30,4 +30,9 @@ public class Employee {
     public String getEmail() {
         return email;
     }
+    
+    public Email getBirthdayEmail() {
+        String message = String.format("Happy birthday, dear %s!", firstName);
+        return new Email(email, "Happy birthday!", message);
+    }
 }
