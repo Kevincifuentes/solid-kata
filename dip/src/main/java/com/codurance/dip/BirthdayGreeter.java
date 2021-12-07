@@ -5,16 +5,16 @@ import java.time.MonthDay;
 public class BirthdayGreeter {
     private final EmployeeRepository employeeRepository;
     private final EmailSender emailSender;
-    private final Clock clock;
+    private final TimeProvider timeProvider;
 
-    public BirthdayGreeter(EmployeeRepository employeeRepository, EmailSender emailSender, Clock clock) {
+    public BirthdayGreeter(EmployeeRepository employeeRepository, EmailSender emailSender, TimeProvider timeProvider) {
         this.employeeRepository = employeeRepository;
         this.emailSender = emailSender;
-        this.clock = clock;
+        this.timeProvider = timeProvider;
     }
 
     public void sendGreetings() {
-        final var today = clock.monthDay();
+        final var today = timeProvider.monthDay();
         
         final var emails = employeeRepository.findEmployeesBornOn(today)
                 .stream()
