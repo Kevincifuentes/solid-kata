@@ -1,3 +1,0 @@
-interface Publisher {
- void publish(Employee employee);
-}
