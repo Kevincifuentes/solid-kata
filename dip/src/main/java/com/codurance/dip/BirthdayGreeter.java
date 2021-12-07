@@ -16,10 +16,9 @@ public class BirthdayGreeter {
     public void sendGreetings() {
         MonthDay today = timeProvider.monthDay();
         
-        final var emails = employeeRepository.findEmployeesBornOn(today)
-                .stream()
-                .map(Employee::getBirthdayEmail);
+        final var users = employeeRepository.findEmployeesBornOn(today)
+                .stream();
         
-        publisher.sendAll(emails);
+        publisher.notify(users);
     }
 }
