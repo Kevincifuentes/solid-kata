@@ -14,7 +14,7 @@ public class BirthdayGreeter {
     }
 
     public void sendGreetings() {
-        MonthDay today = clock.monthDay();
+        final var today = clock.monthDay();
         
         final var emails = employeeRepository.findEmployeesBornOn(today)
                 .stream()
