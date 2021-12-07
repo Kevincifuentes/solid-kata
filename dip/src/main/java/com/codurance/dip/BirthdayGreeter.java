@@ -19,6 +19,6 @@ public class BirthdayGreeter {
         final var users = employeeRepository.findEmployeesBornOn(today)
                 .stream();
         
-        publisher.notify(users);
+        publisher.notifyAll(users);
     }
 }
