@@ -10,15 +10,17 @@ public class BirthdayGreeter {
     public BirthdayGreeter(EmployeeRepository employeeRepository, Publisher publisher, TimeProvider timeProvider) {
         this.employeeRepository = employeeRepository;
         this.publisher = publisher;
-        this.clock = clock;
+        this.timeProvider = timeProvider;
     }
 
     public void sendGreetings() {
         MonthDay today = timeProvider.monthDay();
         
-        final var users = employeeRepository.findEmployeesBornOn(today)
-                .stream();
+        final var emails = employeeRepository.findEmployeesBornOn(today)
+                .stream()
+                .map(Employee:getBirthdayEmail)
+                .collect(toList());
         
-        publisher.notifyAll(users);
+        publisher.notifyAll(emails);
     }
 }
