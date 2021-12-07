@@ -4,24 +4,22 @@ import java.time.MonthDay;
 
 public class BirthdayGreeter {
     private final EmployeeRepository employeeRepository;
-    private final Clock clock;
+    private final Publisher publisher;
+    private final TimeProvider timeProvider;
 
-    public BirthdayGreeter(EmployeeRepository employeeRepository, Clock clock) {
+    public BirthdayGreeter(EmployeeRepository employeeRepository, Publisher publisher, TimeProvider timeProvider) {
         this.employeeRepository = employeeRepository;
+        this.publisher = publisher;
         this.clock = clock;
     }
 
     public void sendGreetings() {
-        MonthDay today = clock.monthDay();
-        employeeRepository.findEmployeesBornOn(today)
+        MonthDay today = timeProvider.monthDay();
+        
+        final var emails = employeeRepository.findEmployeesBornOn(today)
                 .stream()
-                .map(employee -> emailFor(employee))
-                .forEach(email -> new EmailSender().send(email));
+                .map(Employee::getBirthdayEmail);
+        
+        publisher.sendAll(emails);
     }
-
-    private Email emailFor(Employee employee) {
-        String message = String.format("Happy birthday, dear %s!", employee.getFirstName());
-        return new Email(employee.getEmail(), "Happy birthday!", message);
-    }
-
 }
