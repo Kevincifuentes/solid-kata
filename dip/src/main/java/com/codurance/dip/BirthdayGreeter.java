@@ -21,6 +21,6 @@ public class BirthdayGreeter {
                 .map(Employee:getBirthdayEmail)
                 .collect(toList());
         
-        publisher.notifyAll(emails);
+        emailSender.sendAll(emails);
     }
 }
