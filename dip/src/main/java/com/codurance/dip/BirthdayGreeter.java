@@ -4,12 +4,12 @@ import java.time.MonthDay;
 
 public class BirthdayGreeter {
     private final EmployeeRepository employeeRepository;
-    private final EmailSender emailSender;
+    private final Sender sender;
     private final TimeProvider timeProvider;
 
-    public BirthdayGreeter(EmployeeRepository employeeRepository, EmailSender emailSender, TimeProvider timeProvider) {
+    public BirthdayGreeter(EmployeeRepository employeeRepository, Sender sender, TimeProvider timeProvider) {
         this.employeeRepository = employeeRepository;
-        this.emailSender = emailSender;
+        this.sender = sender;
         this.timeProvider = timeProvider;
     }
 
